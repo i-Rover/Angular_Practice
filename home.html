@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+<form class="" action="index.html" method="post" name="registerForm">
+  <div class="" ng-app="app" ng-controller="cont">
+    <p>Name:</p>
+    <input type="text" name="name" value="" ng-model="name" id="name">
+    <p>Address:</p>
+    <input type="text" name="address" value="" ng-model="address">
+    <button type="button" name="button" ng-click="registerNow()">Register Now Angular</button>
+    <button type="button" name="button" onclick="clickMe();">Register Now Javascript</button>
+    <ul>
+      <li ng-repeat="myJSONfromController in myJSONfromControllers">
+        {{myJSONfromController.name}}
+      </li>
+    </ul>
+    <ol>
+      <li ng-repeat="myArray in myArrays">
+        {{myArray}}
+      </li>
+    </ol>
+    <p>My properties</p>
+    <ol>
+      <li ng-repeat="myProperty in myProperties">
+        {{myProperty}}
+      </li>
+    </ol>
+    <br>
+    <hr>
+    <input type="text" name="firstName" value="">
+    <input type="text" name="lastName" value="">
+    <button type="button" name="button" ng-click="validateMe()">Register Me</button>
+    <ol>
+      <li ng-repeat="myJSONfromModl in myJSONfromModlS">
+        {{myJSONfromModl.fname}} {{myJSONfromModl.lname}}
+      </li>
+    </ol>
+    <ol>
+      <li ng-repeat="myArrsfromModl in myArrsfromModlS">
+        {{myArrsfromModl}}
+      </li>
+    </ol>
+    <ol>
+      <li ng-repeat="myObjsfromModl in myObjsfromModlS">
+        {{myObjsfromModl}}
+      </li>
+    </ol>
+    <input
+    type="text"
+    name=""
+    value=""
+    ng-model="getName"
+    placeholder="get input value from angular directive">
+    <button type="button" name="button" ng-click="getDataNow()">Get Data Now</button>
+  </div>
+</form>
+<script type="text/javascript">
+var app = angular.module('app',[]);
+app.controller('cont',function($scope){
+  $scope.getDataNow = function(){
+    
+    console.log($scope.getName);
+  }
+  $scope.validateMe = function(){
+      var fname = document.registerForm.firstName.value;
+      var lname = document.registerForm.lastName.value;
+      var myArrs = [fname,lname];
+      var myObjs = {fname:fname,lname:lname};
+      var myJSON = [
+        {'fname':fname,'lname':lname}
+      ];
+      var i = 0;
+      var MAXXI = myArrs.length;
+      console.log(myJSON);
+      do{
+        console.log(myArrs[i]);
+        i++;}while(i<MAXXI);
+      $scope.myJSONfromModlS = myJSON;
+      $scope.myArrsfromModlS = myArrs;
+      $scope.myObjsfromModlS = myObjs;
+  }
+  $scope.myProperties = {name:'prop1'};
+  $scope.myJSONfromControllers =
+  [
+    {name:'Syamil'},
+    {name:'Syazwan'}
+  ];
+  $scope.myArrays = ['Syahmie','Syakir'];
+  $scope.registerNow = function(){
+      var name = document.registerForm.name.value;
+      var address = document.registerForm.address.value;
+      var person = [];
+      person.push(name);
+      person.push(address);
+      var i = 0;
+      console.log('cfas');
+      do{
+        console.log(person[i]);
+        i++;}while(i<2);
+      var x = 0;
+      do{
+
+      x++;}while(x<2);
+  }
+});
+</script>
+<script type="text/javascript">
+  function clickMe(){
+    var person = [];
+    var name = document.registerForm.name.value;//document.getElementsByName('name').value;
+    var address = document.registerForm.address.value;//document.getElementsByName('address').value;
+    person.push(name);
+    person.push(address);
+    console.log('cfJs');
+    var i = 0;
+    do{
+      console.log(person[i]);
+      i++;}while(i<2);
+  }
+</script>
+</body>
+</html>
