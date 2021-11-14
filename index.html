@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+  <div class=""
+  ng-app="app"
+  ng-controller="contr"
+  ng-init="myvar=[{checkbox1:'t'},{checkbox2:'f'}];
+           myBool = [{checkbox1:true},
+                     {checkbox2:false},
+                     {checkbox3:true}];
+           myBoolfromProp =
+           {checkbox1:true,
+            checkbox2:false};
+            boolVar=true">
+    <input type="checkbox" name="" value="" ng-model="myBool[0].checkbox1">
+    <input type="checkbox" name="" value="" ng-model="myBool[1].checkbox2">
+    <input type="checkbox" name="" value="" ng-model="myBool[2].checkbox3">
+    <p>boolean from json = {{myBool[0].checkbox1}}</p>
+    <p>boolean from obj = {{myBoolfromProp.checkbox1}}</p>
+    <p>{{myvar.name}}</p>
+    <hr>
+    <p>Boolean from obj but using ng directive</p>
+    <p ng-repeat="myObj in myBoolfromProp">
+      {{myObj}}
+    </p>
+    <hr>
+    <p>Boolean from JSON but using ng directive</p>
+    <p ng-repeat="myJSON in myBool">
+      {{myJSON}}
+    </p>
+    <hr>
+    <button type="button" name="button" ng-click="clickMe()">Click Me</button>
+    <button type="button" name="button" ng-click="orderNow(name)">Order by name</button>
+    <button type="button" name="button" ng-click="consoleClear()">Console Clear</button>
+    <table>
+      <tr ng-repeat="myJSONfromController in myJSONfromControllers|orderBy:orderFunc">
+        <td>
+          {{myJSONfromController.id}}
+          {{myJSONfromController.name}}
+          {{myJSONfromController.position}}
+        </td>
+        <td>
+          <button
+          type="button"
+          name="button"
+          ng-click="getId(myJSONfromController.id)">Get Id</button>
+        </td>
+      </tr>
+    </table>
+    <select class="" name="">
+        <option ng-repeat="myArray in myArrays">{{myArray}}</option>
+    </select>
+    <select class="" name="">
+      <option ng-repeat="myJSONfromController in myJSONfromControllers">
+          {{myJSONfromController.name}} {{myJSONfromController.position}}
+      </option>
+    </select>
+    <form class="" action="index.html" method="post">
+      <p>Bind Data using Angular JS API</p>
+      <input type="text" name="" value="" ng-model="user.fname">
+      <input type="text" name="" value="" ng-model="user.lname">
+      <button type="button" name="button" ng-click="validateMe(user)">Sign In</button>
+    </form>
+    <p>{{user|json}}</p>
+    <p>{{objToJSONString}}</p>
+    <p>{{REALJSON}}</p>
+    <input type="password" name="" value="" ng-model="pwdObj.pwd1">
+    <input type="text" name="" value="" ng-model="pwdObj.pwd2">
+    <button type="button" name="button" ng-click="popMe(pwdObj)">ValidateMe</button>
+    <p>{{otJ}}</p>
+    <ol>
+      <li ng-repeat="pwdObj in pwdObjs">
+        {{pwdObj}}
+      </li>
+    </ol>
+    <p>{{pwdObjs.pwd1}} {{pwdObjs.pwd2}}</p>
+    <div ng-repeat="mySingleJSON in mySingleJSONs">
+    <label for="">single JSON</label>
+    <p>{{mySingleJSON.id}} {{mySingleJSON.name}} {{mySingleJSON.superpower}}</p>
+    <button type="button" name="button" ng-click="getSingleid(mySingleJSON.id)">
+      getSingleid
+    </button>
+    </div>
+    <div class="">
+      <input
+      type="checkbox"
+      name=""
+      value=""
+      ng-model="myBoolfromControllers[0].checkbox1">
+      <input
+      type="checkbox"
+      name=""
+      value=""
+      ng-model="myBoolfromControllers[1].checkbox2">
+      <input
+      type="checkbox"
+      name=""
+      value=""
+      ng-model="myBoolfromControllers[2].checkbox3">
+      <p>
+        {{JSONstrs}}
+      </p>
+      <p>{{mySingleJSONs}}</p>
+    </div>
+    <a href="#/!">Go home page</a>
+    <div ng-view></div>
+    <p>{{objInobjs.obj1.objname}} {{objInobjs.obj1.objatt}}</p>
+    <p ng-repeat="objInobj in objInobjs">
+      {{objInobj}}
+    </p>
+    <hr>
+    <input
+    type="checkbox"
+    name=""
+    value=""
+    ng-model="myBoolfromObjsController.checkbox1">
+    <input
+    type="checkbox"
+    name=""
+    value=""
+    ng-model="myBoolfromObjsController.checkbox2">
+    <input
+    type="checkbox"
+    name=""
+    value=""
+    ng-model="boolVar">
+    <hr>
+  </div>
+  <script type="text/javascript">
+    var app = angular.module('app',['ngRoute']);
+    app.config(function($routeProvider){
+      $routeProvider.when('/',{templateUrl:'home.htm'})
+    })
+    app.controller('contr',function($scope){
+      $scope.myBoolfromObjsController = {checkbox1:true,checkbox2:false}
+      $scope.objInobjs = {
+        obj1:{objname:'obj1',objatt:'obj1'},
+        obj2:{objname:'obj2',objatt:'obj2'}
+      };
+      $scope.myBoolfromControllers = [
+        {checkbox1:true},
+        {checkbox2:true},
+        {checkbox2:false}];
+      $scope.JSONstrs=angular.toJson($scope.myBoolfromControllers);
+      $scope.mySingleJSONs = [{id:1,name:'Batman',superpower:'Batarang'}];
+      $scope.getSingleid = function(id){
+        window.alert(id);
+      }
+      $scope.consoleClear = function(){
+        console.clear();
+      }
+      $scope.getId = function(id){
+        var index = id-1;
+        $scope.myJSONAgain = [
+          {id:$scope.myJSONfromControllers[index].id,
+           name:$scope.myJSONfromControllers[index].name,
+           position:$scope.myJSONfromControllers[index].position}
+        ];
+        console.time('to retrieve data:');
+        console.table($scope.myJSONAgain);
+        console.warn($scope.myJSONAgain);
+        console.error($scope.myJSONAgain);
+        console.log($scope.myJSONAgain);
+        console.timeEnd('to retrieve data:');
+      }
+      $scope.popMe = function(pwdObj){
+          $scope.pwdObjs = {}
+          $scope.pwdObjs = angular.copy(pwdObj,$scope.pwdObjs);
+          $scope.otJ = angular.toJson($scope.pwdObjs);
+          if($scope.pwdObjs.pwd1!==$scope.pwdObjs.pwd2){
+            window.alert('prns');
+          }else{
+            window.alert('prs');
+          }
+      }
+      $scope.validateMe = function(user){
+        var num = 2;
+        $scope.user = {};
+        $scope.user = angular.copy(user,$scope.user);
+        $scope.objToJSONString = angular.toJson($scope.user);
+        let JSONStringToobj = angular.fromJson($scope.objToJSONString);
+        $scope.REALJSON = JSONStringToobj;
+        console.log($scope.objToJSONString);
+        console.log(JSONStringToobj);
+        console.log(num);
+      }
+      $scope.clickMe = function(){
+          window.alert('hi there!');
+      }
+      $scope.myJSONfromControllers = [
+        {id:1,name:'Syamil',position:'Staff engineer'},
+        {id:2,name:'Syazwan',position:'Staff engineer'},
+        {id:3,name:'Syahmie',position:'Staff engineer'},
+        {id:4,name:'Syakir',position:'Staff engineer'},
+        {id:5,name:'Abu',position:'Junior Engineer'},
+        {id:6,name:'Nizam',position:'Junior Engineer'},
+        {id:7,name:'Hakimi',position:'Junior Engineer'}
+      ]
+      $scope.myArrays=['Hafiz','Haikal'];
+      $scope.orderNow = function(orderType){
+        $scope.orderFunc = orderType;
+      }
+  });
+  </script>
+</body>
+</html>
